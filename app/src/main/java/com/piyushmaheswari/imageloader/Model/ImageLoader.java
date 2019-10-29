@@ -27,17 +27,17 @@ import com.piyushmaheswari.imageloader.Utils;
 
 public class ImageLoader {
 
-    MemoryCache memoryCache=new MemoryCache();
-    FilesCache fileCache;
+    private MemoryCache memoryCache=new MemoryCache();
+    private FilesCache fileCache;
     private Map<ImageView, String> imageViews=Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
-    ExecutorService executorService;
+    private ExecutorService executorService;
 
     public ImageLoader(Context context){
         fileCache=new FilesCache(context);
         executorService=Executors.newFixedThreadPool(5);
     }
 
-    final int stub_id= R.drawable.ic_launcher_background;
+    private final int stub_id= R.drawable.ic_launcher_background;
     public void DisplayImage(String url, ImageView imageView)
     {
         imageViews.put(imageView, url);
@@ -68,7 +68,7 @@ public class ImageLoader {
 
         //from web
         try {
-            Bitmap bitmap=null;
+            Bitmap bitmap;
             URL imageUrl = new URL(url);
             HttpURLConnection conn = (HttpURLConnection)imageUrl.openConnection();
             conn.setConnectTimeout(30000);
@@ -100,28 +100,26 @@ public class ImageLoader {
             final int REQUIRED_SIZE=70;
             int width_tmp=o.outWidth, height_tmp=o.outHeight;
             int scale=1;
-            while(true){
-                if(width_tmp/2<REQUIRED_SIZE || height_tmp/2<REQUIRED_SIZE)
-                    break;
-                width_tmp/=2;
-                height_tmp/=2;
-                scale*=2;
+            while (width_tmp / 2 >= REQUIRED_SIZE && height_tmp / 2 >= REQUIRED_SIZE) {
+                width_tmp /= 2;
+                height_tmp /= 2;
+                scale *= 2;
             }
 
             //decode with inSampleSize
             BitmapFactory.Options o2 = new BitmapFactory.Options();
             o2.inSampleSize=scale;
             return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
-        } catch (FileNotFoundException e) {}
+        } catch (FileNotFoundException ignored) {}
         return null;
     }
 
     //Task for the queue
     private class PhotoToLoad
     {
-        public String url;
-        public ImageView imageView;
-        public PhotoToLoad(String u, ImageView i){
+        String url;
+        ImageView imageView;
+        PhotoToLoad(String u, ImageView i){
             url=u;
             imageView=i;
         }
@@ -147,11 +145,9 @@ public class ImageLoader {
         }
     }
 
-    boolean imageViewReused(PhotoToLoad photoToLoad){
+    private boolean imageViewReused(PhotoToLoad photoToLoad){
         String tag=imageViews.get(photoToLoad.imageView);
-        if(tag==null || !tag.equals(photoToLoad.url))
-            return true;
-        return false;
+        return tag == null || !tag.equals(photoToLoad.url);
     }
 
     //Used to display bitmap in the UI thread
@@ -159,7 +155,7 @@ public class ImageLoader {
     {
         Bitmap bitmap;
         PhotoToLoad photoToLoad;
-        public BitmapDisplayer(Bitmap b, PhotoToLoad p){bitmap=b;photoToLoad=p;}
+        BitmapDisplayer(Bitmap b, PhotoToLoad p){bitmap=b;photoToLoad=p;}
         public void run()
         {
             if(imageViewReused(photoToLoad))
