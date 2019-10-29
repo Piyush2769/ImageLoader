@@ -2,12 +2,11 @@ package com.piyushmaheswari.imageloader.Cache;
 import java.io.File;
 import android.content.Context;
 
-public class FilesCache {
+public class FileCache {
 
     private File cacheDir;
 
-    public FilesCache(Context context){
-        //Find the dir to save cached images
+    public FileCache(Context context){
         if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED))
             cacheDir=new File(android.os.Environment.getExternalStorageDirectory(),"TTImages_cache");
         else

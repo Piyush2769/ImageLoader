@@ -1,5 +1,6 @@
 package com.piyushmaheswari.imageloader.Adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,23 +8,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
+
 
 import com.piyushmaheswari.imageloader.Model.ImageLoader;
 import com.piyushmaheswari.imageloader.R;
 
 public class LazyAdapter extends BaseAdapter {
 
-    private Activity activity;
     private String[] data;
     private static LayoutInflater inflater=null;
-    public ImageLoader imageLoader;
+    private ImageLoader imageLoader;
 
     public LazyAdapter(Activity a, String[] d) {
-        activity = a;
         data=d;
-        inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        imageLoader=new ImageLoader(activity.getApplicationContext());
+        inflater = (LayoutInflater) a.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        imageLoader=new ImageLoader(a.getApplicationContext());
     }
 
     @Override
@@ -41,13 +40,14 @@ public class LazyAdapter extends BaseAdapter {
         return i;
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         View vi=view;
         if(view==null)
             vi = inflater.inflate(R.layout.list_item, null);
 
-        ImageView image=(ImageView)vi.findViewById(R.id.image);
+        ImageView image=vi.findViewById(R.id.image);
         imageLoader.DisplayImage(data[i], image);
         return vi;
     }

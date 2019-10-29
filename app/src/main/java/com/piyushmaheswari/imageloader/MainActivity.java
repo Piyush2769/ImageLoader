@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String[] imageUrls = {
-            "https://si0.twimg.com/profile_images/2053165008/ac-new_bigger.jpg",
+            "https://www.w3schools.com/images/w3schools_green.jpg",
             "https://si0.twimg.com/profile_images/1751120073/green-android-rotate-02__1__copy_9_bigger.jpeg",
             "https://si0.twimg.com/profile_images/2508170683/m8jf0po4imu8t5eemjdd_bigger.png",
             "https://si0.twimg.com/profile_images/1517737798/aam-twitter-right-final_bigger.png",

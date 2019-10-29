@@ -19,7 +19,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.ImageView;
 
-import com.piyushmaheswari.imageloader.Cache.FilesCache;
+import com.piyushmaheswari.imageloader.Cache.FileCache;
 import com.piyushmaheswari.imageloader.Cache.MemoryCache;
 import com.piyushmaheswari.imageloader.R;
 import com.piyushmaheswari.imageloader.Utils;
@@ -28,12 +28,12 @@ import com.piyushmaheswari.imageloader.Utils;
 public class ImageLoader {
 
     private MemoryCache memoryCache=new MemoryCache();
-    private FilesCache fileCache;
+    private FileCache fileCache;
     private Map<ImageView, String> imageViews=Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
     private ExecutorService executorService;
 
     public ImageLoader(Context context){
-        fileCache=new FilesCache(context);
+        fileCache=new FileCache(context);
         executorService=Executors.newFixedThreadPool(5);
     }
 
