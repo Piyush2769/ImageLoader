@@ -56,7 +56,7 @@ public class MemoryCache {
         if(size>limit){
             Iterator<Entry<String, Bitmap>> iter=cache.entrySet().iterator();
                 //interface which belongs to Collection framework and
-                // allows to traverse the collection, acess and remove the data element.
+                // allows to traverse the collection, access and remove the data element.
 
                 //Entry-interface that contains methods to access entries in a map.
                 // it allows to iterate over Map.entrySet() instead of having to operate over Map.keySet().
