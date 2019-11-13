@@ -12,7 +12,8 @@ public class MemoryCache {
     private static final String TAG = "MemoryCache";
     private Map<String, Bitmap> cache=Collections.synchronizedMap(
             new LinkedHashMap<String, Bitmap>(10,1.5f,true));
-                    //LinkedHashMap maintains the data in Insertion order. However in this case, we will be configuring LinkedHashMap to maintain the data in Access order.
+                    //LinkedHashMap maintains the data in Insertion order. However in this case,
+                    // we will be configuring LinkedHashMap to maintain the data in Access order.
 
     private long size=0;//current allocated size
     private long limit=1000000;//max memory in bytes
@@ -54,6 +55,11 @@ public class MemoryCache {
         Log.i(TAG, "cache size="+size+" length="+cache.size());
         if(size>limit){
             Iterator<Entry<String, Bitmap>> iter=cache.entrySet().iterator();
+                //interface which belongs to Collection framework and
+                // allows to traverse the collection, acess and remove the data element.
+
+                //Entry-interface that contains methods to access entries in a map.
+                // it allows to iterate over Map.entrySet() instead of having to operate over Map.keySet().
             while(iter.hasNext()){
                 Entry<String, Bitmap> entry=iter.next();
                 size-=getSizeInBytes(entry.getValue());
