@@ -1,4 +1,5 @@
 package com.piyushmaheswari.imageloader.Model;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,33 +13,30 @@ import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.ImageView;
-
 import com.piyushmaheswari.imageloader.Cache.FileCache;
 import com.piyushmaheswari.imageloader.Cache.MemoryCache;
 import com.piyushmaheswari.imageloader.R;
 import com.piyushmaheswari.imageloader.Utils;
-
 
 public class ImageLoader {
 
     private MemoryCache memoryCache=new MemoryCache();
     private FileCache fileCache;
     private Map<ImageView, String> imageViews=Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
-    private ExecutorService executorService;
+    private ExecutorService executorService; //adds methods to manage lifecycle of threads used to run the submitted tasks.
 
     public ImageLoader(Context context){
         fileCache=new FileCache(context);
-        executorService=Executors.newFixedThreadPool(5);
+        executorService=Executors.newFixedThreadPool(5); //creates thread pool that uses a fixed number of threads.
     }
 
     private final int stub_id= R.drawable.ic_launcher_background;
-    public void DisplayImage(String url, ImageView imageView)
+    public void DisplayImage(String url, ImageView imageView)  //Present in LazyAdapter
     {
         imageViews.put(imageView, url);
         Bitmap bitmap=memoryCache.get(url);

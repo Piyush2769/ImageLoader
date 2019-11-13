@@ -8,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-
-
 import com.piyushmaheswari.imageloader.Model.ImageLoader;
 import com.piyushmaheswari.imageloader.R;
 

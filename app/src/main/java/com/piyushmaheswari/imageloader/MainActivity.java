@@ -27,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private String[] imageUrls = {
+    private String[] imageUrls =
+            {
             "https://www.w3schools.com/images/w3schools_green.jpg",
             "https://si0.twimg.com/profile_images/1751120073/green-android-rotate-02__1__copy_9_bigger.jpeg",
             "https://si0.twimg.com/profile_images/2508170683/m8jf0po4imu8t5eemjdd_bigger.png",
