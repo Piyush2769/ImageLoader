@@ -12,6 +12,8 @@ public class MemoryCache {
     private static final String TAG = "MemoryCache";
     private Map<String, Bitmap> cache=Collections.synchronizedMap(
             new LinkedHashMap<String, Bitmap>(10,1.5f,true));
+                    //LinkedHashMap maintains the data in Insertion order. However in this case, we will be configuring LinkedHashMap to maintain the data in Access order.
+
     private long size=0;//current allocated size
     private long limit=1000000;//max memory in bytes
 

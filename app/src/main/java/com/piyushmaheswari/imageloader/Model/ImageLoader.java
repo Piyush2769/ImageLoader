@@ -51,7 +51,7 @@ public class ImageLoader {
 
     private void queuePhoto(String url, ImageView imageView)
     {
-        PhotoToLoad p=new PhotoToLoad(url, imageView);
+        PhotoToLoad p=new PhotoToLoad(url, imageView); //Class below
         executorService.submit(new PhotosLoader(p));
     }
 
@@ -137,7 +137,7 @@ public class ImageLoader {
                 return;
             BitmapDisplayer bd=new BitmapDisplayer(bmp, photoToLoad);
             Activity a=(Activity)photoToLoad.imageView.getContext();
-            a.runOnUiThread(bd);
+            a.runOnUiThread(bd); //reminds the UI that its now time to update the application UI.
         }
     }
 
